@@ -48,5 +48,63 @@ public class Calculator {
         displayPanel.add(displayLabel); //adding the label to the panel 
         frame.add(displayPanel, BorderLayout.NORTH); //adding the panel to the frame in the north (top of the frame)
         
+        buttonsPanel.setLayout(new GridLayout(5,4)); //setting up grid layout for the buttons
+        buttonsPanel.setBackground(customBlack); //background color of the buttons
+        frame.add(buttonsPanel); //adding the buttons to the frame
+
+        //setting up the buttons
+        for (int i = 0; i < buttonValues.length; i++) {
+            JButton button = new JButton();
+            String buttonValue = buttonValues[i];
+            button.setFont(new Font("Arial", Font.PLAIN, 30));
+            button.setText(buttonValue); //setting the inner text of the button
+            button.setFocusable(false); //making it so that a focus box doesnt appear on the button text
+            button.setBorder(new LineBorder(customBlack));
+            //setting up different colors for different types of buttons
+            if (Arrays.asList(topSymbols).contains(buttonValue)) {
+                button.setBackground(customLightGray);
+                button.setForeground(customBlack);
+            }
+            else if (Arrays.asList(rightSymbols).contains(buttonValue)) {
+                button.setBackground(customOrange);
+                button.setForeground(Color.white);
+            }
+            else {
+                button.setBackground(customDarkGray);
+                button.setForeground(Color.white);
+            }
+
+            buttonsPanel.add(button); //adding button to the frame
+
+            button.addActionListener(new ActionListener() { //listening for action in the buttons
+                public void actionPerformed(ActionEvent e) {
+                    JButton button = (JButton) e.getSource(); //getting the source of the action, i.e where the button was clicked
+                    String buttonValue = button.getText(); //getting the text of the button clicked
+                    if (Arrays.asList(rightSymbols).contains(buttonValue)) {
+                        
+                    }
+                    else if (Arrays.asList(topSymbols).contains(buttonValue)) {
+                       
+                    }
+                    else { //for digits or decimal
+                        if (buttonValue == ".") {
+                            if(!displayLabel.getText().contains(buttonValue)) {
+                                displayLabel.setText(displayLabel.getText() + buttonValue); 
+                            }
+
+                        }
+                        else if ("0123456789".contains(buttonValue)) {
+                            if (displayLabel.getText() == "0") { //if in initial stage i.e 0, we remove 0 and show the number that is clicked
+                                displayLabel.setText(buttonValue);
+                            }
+                            else {
+                                displayLabel.setText(displayLabel.getText() + buttonValue);
+                            }
+                        }
+                    }
+
+                }
+            });
+        }
     }
 }
