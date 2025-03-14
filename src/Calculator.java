@@ -29,8 +29,14 @@ public class Calculator {
     JLabel displayLabel = new JLabel();
     JPanel displayPanel = new JPanel(); //We will place our text within the label -> label within panel -> panel within frame
     JPanel buttonsPanel = new JPanel(); //panel for the buttons
+
+    //A+B, A-B, A*B, A/B
+    String A = "0";
+    String operator = null;
+    String B = null;
+
     Calculator() { //constructor
-        frame.setVisible(true); //visibility set to true
+        //frame.setVisible(true); //visibility set to true
         frame.setSize(boardWidth, boardHeight); //setting the dimension of the frame
         frame.setLocationRelativeTo(null); //window opens in the center
         frame.setResizable(false); //so user cannot resize the window
@@ -81,10 +87,51 @@ public class Calculator {
                     JButton button = (JButton) e.getSource(); //getting the source of the action, i.e where the button was clicked
                     String buttonValue = button.getText(); //getting the text of the button clicked
                     if (Arrays.asList(rightSymbols).contains(buttonValue)) {
-                        
+                        if (buttonValue == "=") {
+                            if (A != null) {
+                                B = displayLabel.getText();
+                                double numA = Double.parseDouble(A);
+                                double numB = Double.parseDouble(B);
+
+                                if (operator == "+") {
+                                    displayLabel.setText(removeZeroDecimal(numA+numB));
+                                }
+                                else if (operator == "-") {
+                                    displayLabel.setText(removeZeroDecimal(numA-numB));
+                                }
+                                else if (operator == "×") {
+                                    displayLabel.setText(removeZeroDecimal(numA*numB));
+                                }
+                                else if (operator == "÷") {
+                                    displayLabel.setText(removeZeroDecimal(numA/numB));
+                                }
+                                clearAll();
+                            }
+                        }
+                        else if ("+-×÷".contains(buttonValue)) {
+                            if (operator == null) {
+                                A = displayLabel.getText();
+                                displayLabel.setText("0");
+                                B = "0";
+                            }
+                            operator = buttonValue;
+                        }
                     }
                     else if (Arrays.asList(topSymbols).contains(buttonValue)) {
-                       
+                       if (buttonValue == "AC") {
+                            clearAll();
+                            displayLabel.setText("0");
+                       }
+                       else if (buttonValue == "+/-") {
+                            double numDisplay = Double.parseDouble(displayLabel.getText());
+                            numDisplay *= -1;
+                            displayLabel.setText(removeZeroDecimal(numDisplay));
+                       }
+                       else if (buttonValue == "%") {
+                            double numDisplay = Double.parseDouble(displayLabel.getText());
+                            numDisplay /= 100;
+                            displayLabel.setText(removeZeroDecimal(numDisplay));
+                       }
                     }
                     else { //for digits or decimal
                         if (buttonValue == ".") {
@@ -105,6 +152,20 @@ public class Calculator {
 
                 }
             });
+            frame.setVisible(true);
         }
+    }
+
+    void clearAll() {
+        A = "0";
+        operator = null;
+        B = null;
+    }
+
+    String removeZeroDecimal(double numDisplay) {
+        if (numDisplay % 1 == 0) {
+            return Integer.toString((int) numDisplay);
+        }
+        return Double.toString(numDisplay);
     }
 }
