@@ -6,7 +6,7 @@ A simple Java-based calculator built using the Swing framework. This project pro
 
 ➕➖✖️➗ Basic arithmetic operations: Addition, Subtraction, Multiplication, Division
 
-## 📊 Special functions: Percentage (%), Square Root (√), Negation (+/-)
+- 📊 Special functions: Percentage (%), Negation (+/-)
 
 - 🗑️ "AC" button to clear all inputs
 
