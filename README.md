@@ -4,7 +4,7 @@ A simple Java-based calculator built using the Swing framework. This project pro
 
 ## ✨ Features
 
-➕➖✖️➗ Basic arithmetic operations: Addition, Subtraction, Multiplication, Division
+- ➕➖✖️➗ Basic arithmetic operations: Addition, Subtraction, Multiplication, Division
 
 - 📊 Special functions: Percentage (%), Negation (+/-)
 
